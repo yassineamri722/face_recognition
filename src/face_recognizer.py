@@ -8,16 +8,16 @@ import json
 import os
 import logging
 import paho.mqtt.client as mqtt
-from settings.settings import CAMERA, FACE_DETECTION, PATHS, MQTT
+from settings.settings import CAMERA, FACE_DETECTION, PATHS, 
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 # MQTT Configuration
-MQTT_BROKER = MQTT['broker_ip']  # Remplace avec l'IP du broker
-MQTT_PORT = MQTT['port']         # Port du broker (1883 par défaut)face_recognizer
-MQTT_TOPIC = MQTT['topic']       # Topic pour publier les résultats
+MQTT_BROKER = MQTT['localhost']  # Remplace avec l'IP du broker
+MQTT_PORT = MQTT['1883']         # Port du broker (1883 par défaut)face_recognizer
+MQTT_TOPIC = MQTT['face_recognition']       # Topic pour publier les résultats
 
 # Initialize MQTT Client
 client = mqtt.Client()
