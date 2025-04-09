@@ -29,3 +29,4 @@ PATHS = {
     'names_file': 'names.json',
     'trainer_file': 'trainer.yml'
 }
+
