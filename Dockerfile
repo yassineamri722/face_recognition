@@ -1,17 +1,27 @@
-# Utilise une image Python 3.8 de base
-FROM python:3.8-alpine
+# Use official Python 3.8 Alpine image as a base
+FROM python:3.8.10-alpine
 
-# Définir le répertoire de travail dans le conteneur
+# Set working directory inside the container
 WORKDIR /app
 
-# Copier les fichiers locaux dans le conteneur
+# Copy everything from the current folder into the container
 COPY . /app
 
-# Installer les dépendances
+# Install system dependencies required for some Python packages (e.g., opencv, dlib)
+RUN apk update && apk add --no-cache \
+    build-base \
+    cmake \
+    libffi-dev \
+    python3-dev \
+    libjpeg-dev \
+    zlib-dev \
+    && pip install --upgrade pip
+
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Exposer le port pour l'application Flask
+# Expose the port used by Flask (adjust if needed)
 EXPOSE 5000
 
-# Démarrer l'application Flask
+# Start the Flask app
 CMD ["python", "app.py"]
