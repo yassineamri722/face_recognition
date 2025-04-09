@@ -1,5 +1,5 @@
 # Use official Python 3.8 Alpine image as a base
-FROM python:3.8.10-alpine
+FROM python:3.8.20-alpine
 
 # Set working directory inside the container
 WORKDIR /app
@@ -9,12 +9,14 @@ COPY . /app
 
 # Install system dependencies required for some Python packages (e.g., opencv, dlib)
 RUN apk update && apk add --no-cache \
+    bash \
     build-base \
     cmake \
     libffi-dev \
     python3-dev \
     libjpeg-dev \
     zlib-dev \
+    libmagic \
     && pip install --upgrade pip
 
 # Install Python dependencies
