@@ -1,20 +1,23 @@
-# Use an official Python runtime as the base image
 FROM python:3.8-slim
 
-# Set the working directory inside the container
+# Install dependencies required for OpenCV
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Install required Python packages
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
 
-# Upgrade pip to the latest version
-RUN pip install --upgrade pip
+# Copy the application code
+COPY . /app/
 
-# Install any dependencies from requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Expose the port used by your application (if relevant)
-EXPOSE 5000
-
-# Run the application with python app.py (instead of flask run)
+# Run the application
 CMD ["python", "app.py"]
