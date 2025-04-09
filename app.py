@@ -6,13 +6,13 @@ app = Flask(__name__)
 
 def run_recognizer():
     try:
-        subprocess.run(["python3", "face_recognizer.py"], check=True)
+        subprocess.run(["python3", "src/face_recognizer.py"], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running face_recognizer.py: {e}")
 
 def run_register():
     try:
-        subprocess.run(["python3", "face_taker.py"], check=True)
+        subprocess.run(["python3", "src/face_taker.py"], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running face_taker.py: {e}")
 
