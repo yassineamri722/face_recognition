@@ -10,15 +10,11 @@ COPY . /app
 # Upgrade pip to the latest version
 RUN pip install --upgrade pip
 
-# Install any dependencies
+# Install any dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port used by Flask
+# Expose the port used by your application (if relevant)
 EXPOSE 5000
 
-# Define the environment variable for Flask (optional if needed)
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-
-
+# Run the application with python app.py (instead of flask run)
 CMD ["python", "app.py"]
