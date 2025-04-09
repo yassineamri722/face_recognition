@@ -8,7 +8,7 @@ import json
 import os
 import logging
 import paho.mqtt.client as mqtt
-from settings.settings import CAMERA, FACE_DETECTION, PATHS, 
+from settings.settings import CAMERA, FACE_DETECTION, PATHS
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
