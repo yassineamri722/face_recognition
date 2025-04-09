@@ -20,5 +20,5 @@ EXPOSE 5000
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
-# Run the application using 'python app.py'
+
 CMD ["python", "app.py"]
