@@ -29,4 +29,9 @@ PATHS = {
     'names_file': 'names.json',
     'trainer_file': 'trainer.yml'
 }
+MQTT = {
+    'host': 'localhost',
+    'port': 1883,
+    'topic': 'face_recognition'
+}
 
