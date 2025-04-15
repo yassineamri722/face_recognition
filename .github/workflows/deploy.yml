@@ -1,0 +1,34 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main  # Trigger the action on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+
+    - name: SSH into Azure VM and deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.AZURE_VM_HOST }}  # Utilise le secret pour l'adresse IP de ta VM
+        username: ${{ secrets.AZURE_VM_USER }}  # Utilise un autre secret pour le nom d'utilisateur
+        password: ${{ secrets.AZURE_VM_PASSWORD }}  # Utilise un autre secret pour le mot de passe
+        port: 22
+        script: |
+          # Vérifier si le projet existe déjà, sinon le cloner
+          if [ ! -d "face_recognition" ]; then
+            git clone https://github.com/YassineAmri/face_recognition.git
+          fi
+          cd face_recognition
+          
+          # Récupérer la dernière version du Docker image depuis DockerHub
+          docker pull yassineamri/face_recognition:latest
+          
+          # Lancer le container Docker avec l'image la plus récente
+          docker run -d -p 80:80 yassineamri/face_recognition:latest
