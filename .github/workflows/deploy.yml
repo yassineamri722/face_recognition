@@ -23,7 +23,7 @@ jobs:
         script: |
           # Vérifier si le projet existe déjà, sinon le cloner
           if [ ! -d "face_recognition" ]; then
-            git clone https://github.com/YassineAmri/face_recognition.git
+            git clone https://github.com/yassineamri722/face_recognition.git
           fi
           cd face_recognition
           
