@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory
 WORKDIR /app
 
-# Install required Python package
+# Install required Python pack
 COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 
