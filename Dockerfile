@@ -13,6 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Étape 5 : Copier tout le contenu du projet dans le conteneur
 COPY . /app/
 
+# Ajouter /app/src au PYTHONPATH pour permettre à Python de trouver face_recognizer
+ENV PYTHONPATH=/app/src:$PYTHONPATH
+
 # Étape 6 : Exposer le port 5000 sur lequel Gunicorn écoutera
 EXPOSE 5000
 
