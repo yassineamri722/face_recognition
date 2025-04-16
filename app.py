@@ -4,7 +4,7 @@ import json
 import base64
 
 # Import the function from src
-from face_recognizer import start_face_recognition
+from src.face_recognizer import start_face_recognition
 
 app = Flask(__name__)
 

@@ -14,7 +14,7 @@ import numpy as np
 import json
 import logging
 import paho.mqtt.client as mqtt
-from settings.settings import CAMERA, FACE_DETECTION, PATHS, MQTT
+from src.settings.settings import CAMERA, FACE_DETECTION, PATHS, MQTT
 import base64
 
 # Configure logging

@@ -10,11 +10,11 @@ COPY requirements.txt .
 # Étape 4 : Installation des dépendances
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Étape 5 : Copier tout le contenu du répertoire src dans le conteneur
-COPY src/ /app/src/
+# Étape 5 : Copier tout le contenu du projet dans le conteneur
+COPY . /app/
 
 # Étape 6 : Exposer le port 5000 sur lequel Gunicorn écoutera
 EXPOSE 5000
 
-# Étape 7 : Lancer l'application avec Gunicorn (assurez-vous que le chemin src.app:app est correct)
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "src.app:app"]
+# Étape 7 : Lancer l'application avec Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
