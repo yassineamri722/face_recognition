@@ -14,21 +14,24 @@ jobs:
       uses: actions/checkout@v2
 
     - name: SSH into Azure VM and deploy
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v0.1.1
       with:
-        host: ${{ secrets.AZURE_VM_HOST }}  # Utilise le secret pour l'adresse IP de ta VM
-        username: ${{ secrets.AZURE_VM_USER }}  # Utilise un autre secret pour le nom d'utilisateur
-        password: ${{ secrets.AZURE_VM_PASSWORD }}  # Utilise un autre secret pour le mot de passe
+        host: ${{ secrets.AZURE_VM_HOST }}  # Use secret for Azure VM IP
+        username: ${{ secrets.AZURE_VM_USER }}  # Use secret for the VM username
+        password: ${{ secrets.AZURE_VM_PASSWORD }}  # Use secret for the VM password
         port: 22
         script: |
-          # Vérifier si le projet existe déjà, sinon le cloner
+          # Check if the project directory exists, if not, clone the repository
           if [ ! -d "face_recognition" ]; then
             git clone https://github.com/yassineamri722/face_recognition.git
           fi
           cd face_recognition
           
-          # Récupérer la dernière version du Docker image depuis DockerHub
+          # Pull the latest version of the Docker image from DockerHub
           docker pull yassineamri/face_recognition:latest
           
-          # Lancer le container Docker avec l'image la plus récente
-          docker run -d -p 80:80 yassineamri/face_recognition:latest
+          # Stop any existing container running on port 5000 (if any)
+          docker ps -q -f "name=face_recognition" | grep -q . && docker stop face_recognition
+          
+          # Run the container on port 5000
+          docker run -d -p 5000:5000 --name face_recognition yassineamri/face_recognition:latest
