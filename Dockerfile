@@ -1,30 +1,20 @@
-# Use the official Python 3.8 slim image
-FROM python:3.8-slim
+# Étape 1 : Image de base
+FROM python:3.10-slim
 
-# Install dependencies required for OpenCV
-RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender1 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Set the working directory in the container
+# Étape 2 : Dossier de travail
 WORKDIR /app
 
-# Install required Python packages from requirements.txt
-COPY requirements.txt /app/
-RUN pip install -r requirements.txt
+# Étape 3 : Copier requirements.txt
+COPY requirements.txt .
 
-# Copy the application code into the container
-COPY . /app/
+# Étape 4 : Installer les dépendances
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Set the environment variable for Flask app to the correct path
-ENV FLASK_APP=src/app.py
+# Étape 5 : Copier tout le projet
+COPY . .
 
-# Expose the port the app will run on
+# Étape 6 : Exposer le port utilisé par l'app
 EXPOSE 5000
 
-# Use Gunicorn to run the Flask app from the src directory
+# Étape 7 : Lancer gunicorn en pointant vers src.app:app
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "src.app:app"]
