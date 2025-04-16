@@ -1,4 +1,4 @@
-# Use an official Python runtime as a parent image
+# Use the official Python 3.8 slim image
 FROM python:3.8-slim
 
 # Install dependencies required for OpenCV
@@ -10,22 +10,21 @@ RUN apt-get update && apt-get install -y \
     libxrender1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy requirements.txt first to leverage Docker cache
+# Install required Python packages from requirements.txt
 COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
-# Copy the application code to the container
+# Copy the application code into the container
 COPY . /app/
 
-# Set the environment variable for Flask
-ENV FLASK_APP=app.py
+# Set the environment variable for Flask app to the correct path
+ENV FLASK_APP=src/app.py
 
-# Expose the port Flask will run on (default 5000 for Flask)
+# Expose the port the app will run on
 EXPOSE 5000
 
-
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "src.app:app"]
-
+# Use Gunicorn to run the Flask app from the src directory
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "src.app:app"]
