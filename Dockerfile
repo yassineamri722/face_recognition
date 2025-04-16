@@ -26,6 +26,6 @@ ENV FLASK_APP=app.py
 # Expose the port Flask will run on (default 5000 for Flask)
 EXPOSE 5000
 
-# Run the Flask app using Gunicorn (production server)
+
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "src.app:app"]
 
