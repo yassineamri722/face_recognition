@@ -27,4 +27,5 @@ ENV FLASK_APP=app.py
 EXPOSE 5000
 
 # Run the Flask app using Gunicorn (production server)
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "src.app:app"]
+
